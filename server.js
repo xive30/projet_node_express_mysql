@@ -9,10 +9,10 @@ const path = require("path");
 const userController = require("./controllers/user");
 
 app.use(express.json());
-const message = { msg: "coucou"};
+const message = { msg: "coucou de server.js"};
 
 app.get("/", (req,res) =>{
-    res.sendFile(path.join(__dirname, "./vews/index.html"));
+    res.sendFile(path.join(__dirname, "./views/index.html"));
 });
 
 app.get("/users", userController.read);

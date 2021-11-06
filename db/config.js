@@ -10,7 +10,7 @@ const bdd = mysql.createConnection({
 
 bdd.connect(function(err) {
     if (err) throw err; //pest ce que c'esst une erreur de connection a la database
-    console.log("connected!");
+    console.log("database connected!");
 });
 
 module.exports = bdd;
