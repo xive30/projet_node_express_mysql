@@ -1,31 +1,25 @@
+// la constante express requiert le module express
 const express = require('express');
+// la constante app execute express
 const app = express();
-const mysql = require('mysql');
 const path = require("path");
 
-const bdd = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "tuto_mysql",
-    port: 3307
-  });
-  
+// la constante userController requiert le fichier user
+/* on va effectuer les changement a partir du fichier user */
+const userController = require("./controllers/user");
+
+app.use(express.json());
+const message = { msg: "coucou"};
+
 app.get("/", (req,res) =>{
-    res.sendFile(path.join(__dirname, "index.html"))
+    res.sendFile(path.join(__dirname, "./vews/index.html"));
 });
 
-app.get("/users", (req, res) =>{
-    bdd.connect(function(err) {
-        if (err) throw err;
-        bdd.query("SELECT * FROM users", function (error, result) {
-          if (error) throw error;
-          console.log(result);
-          res.send(result);
-        });
-    });
-});
+app.get("/users", userController.read);
 
+app.post("/users", userController.create);
+
+app.delete("/users", userController.delete);
 
 app.listen(5500, ()=> {
     console.log("server running on port 5500");
